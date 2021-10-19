@@ -2,7 +2,12 @@ async function connect() {
   if(global.connection && global.connection.state != 'disconnected') return global.connection;
 
   const mysql = require("mysql2/promise");
-  const connection = await mysql.createConnection("mysqsl://root:@localhost:3306/learn_better_api");
+  const connection = await mysql.createConnection({
+    host: 'mysql.overflow.dev.br',
+    user: 'overflow01',
+    database: 'overflow01',
+    password: 'overflow06042021'
+  });
   console.log("Conectado ao BD!");
 
   global.connection = connection;
@@ -25,7 +30,7 @@ module.exports = {
       let conn = await connect();
       return await conn.query(`SELECT * FROM usuario;`);
     } catch (error) {
-      return error; 
+      return error;
     }
   },
 
