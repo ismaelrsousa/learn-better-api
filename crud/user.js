@@ -7,13 +7,6 @@ const router = express.Router();
 const db = require("../database");
 
 //? USERS
-//  READ
-router.get('/', async function(req, res) {
-  let result = await db.readUsers();
-
-  res.send(result[0]);
-});
-
 //  CREATE
 router.post('/', async function(req, res) {
   let user = req.body;
@@ -25,6 +18,13 @@ router.post('/', async function(req, res) {
   let result = await db.createUser(user);
 
   res.send(result);
+});
+
+//  READ
+router.get('/', async function(req, res) {
+  let result = await db.readUsers();
+
+  res.send(result[0]);
 });
 
 //  UPDATE
