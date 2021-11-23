@@ -2,11 +2,17 @@ async function connect() {
   if(global.connection && global.connection.state != 'disconnected') return global.connection;
 
   const mysql = require("mysql2/promise");
+  // const connection = await mysql.createConnection({
+  //   host: 'mysql.overflow.dev.br',
+  //   user: 'overflow01',
+  //   database: 'overflow01',
+  //   password: 'overflow06042021'
+  // });
   const connection = await mysql.createConnection({
-    host: 'mysql.overflow.dev.br',
-    user: 'overflow01',
-    database: 'overflow01',
-    password: 'overflow06042021'
+    host: 'localhost',
+    user: 'root',
+    database: 'learn_better_api',
+    password: ''
   });
   console.log("Conectado ao BD!");
 
@@ -53,5 +59,44 @@ module.exports = {
     } catch (error) {
       return error; 
     }
-  }
+  },
+
+  createCategory: async (category) => {
+    try {
+      const conn = await connect();
+      return await conn.query(`INSERT INTO categoria VALUES (null, "${category.name}", "${category.tags}", ${category.status}, null)`);
+    } catch (error) {
+      return error; 
+    }
+  },
+
+  readCategory: async () => {
+    try {
+      let conn = await connect();
+      return await conn.query(`SELECT * FROM categoria;`);
+    } catch (error) {
+      return error;
+    }
+  },
+
+  updateCategory: async (category, id) => {
+    try {
+      const conn = await connect();
+      
+      return await conn.query(`UPDATE categoria SET nm_categoria = "${category.name}", nm_tags = "${category.tags}", cd_status = ${category.status}, cd_categoria_pai = null WHERE cd_categoria = ${id}`);
+    } catch (error) {
+      return error; 
+    }
+  },
+
+  deleteCategory: async (id) => {
+    try {
+      const conn = await connect();
+      
+      return await conn.query(`DELETE FROM categoria WHERE cd_categoria = ${id}`);
+
+    } catch (error) {
+      return error; 
+    }
+  },
 }
