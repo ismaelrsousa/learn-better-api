@@ -99,4 +99,82 @@ module.exports = {
       return error; 
     }
   },
+
+  createMessage: async (message) => {
+    try {
+      const conn = await connect();
+      return await conn.query(`INSERT INTO mensagem VALUES (null, ${message.author}, ${message.destiny}, "${message.message}")`);
+    } catch (error) {
+      return error; 
+    }
+  },
+
+  readMessage: async () => {
+    try {
+      let conn = await connect();
+      return await conn.query(`SELECT * FROM mensagem;`);
+    } catch (error) {
+      return error;
+    }
+  },
+
+  updateMessage: async (message, id) => {
+    try {
+      const conn = await connect();
+      
+      return await conn.query(`UPDATE mensagem SET cd_autor = ${message.author}, cd_destino = ${message.destiny}, nm_mensagem = "${message.message}" WHERE cd_mensagem = ${id}`);
+    } catch (error) {
+      return error; 
+    }
+  },
+
+  deleteMessage: async (id) => {
+    try {
+      const conn = await connect();
+      
+      return await conn.query(`DELETE FROM mensagem WHERE cd_mensagem = ${id}`);
+
+    } catch (error) {
+      return error; 
+    }
+  },
+
+  createMentory: async (mentory) => {
+    try {
+      const conn = await connect();
+      return await conn.query(`INSERT INTO mentoria VALUES (null, ${mentory.mentor}, ${mentory.mentee}, "${mentory.start_date}", "${mentory.end_date}", ${mentory.avaliation_mentor}, ${mentory.avaliation_mentee}, ${mentory.status}, ${mentory.category})`);
+    } catch (error) {
+      return error; 
+    }
+  },
+
+  readMentory: async () => {
+    try {
+      let conn = await connect();
+      return await conn.query(`SELECT * FROM mentoria;`);
+    } catch (error) {
+      return error;
+    }
+  },
+
+  updateMentory: async (mentory, id) => {
+    try {
+      const conn = await connect();
+      
+      return await conn.query(`UPDATE mentoria SET cd_mentor = ${mentory.mentor}, cd_mentorado = ${mentory.mentee}, dt_inicio = "${mentory.start_date}", dt_fim = "${mentory.end_date}", nr_avaliacao_mentor = ${mentory.avaliation_mentor}, nr_avaliacao_mentorado = ${mentory.avaliation_mentee}, cd_status = ${mentory.status}, cd_categoria = ${mentory.category} WHERE cd_mentoria = ${id}`);
+    } catch (error) {
+      return error; 
+    }
+  },
+
+  deleteMentory: async (id) => {
+    try {
+      const conn = await connect();
+      
+      return await conn.query(`DELETE FROM mentoria WHERE cd_mentoria = ${id}`);
+
+    } catch (error) {
+      return error; 
+    }
+  },
 }

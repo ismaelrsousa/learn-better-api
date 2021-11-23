@@ -53,9 +53,10 @@ CREATE TABLE mentoria (
 
 DROP TABLE IF EXISTS mensagem;
 CREATE TABLE mensagem (
-	cd_mensagem INT(9) NOT NULL PRIMARY KEY,
+	cd_mensagem INT(9) AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	cd_autor INT(4) NOT NULL,
 	cd_destino INT(4) NOT NULL,
+	nm_mensagem LONGTEXT NOT NULL,
 	FOREIGN KEY (cd_autor) REFERENCES usuario(cd_usuario),
 	FOREIGN KEY (cd_destino) REFERENCES usuario(cd_usuario)
 );
