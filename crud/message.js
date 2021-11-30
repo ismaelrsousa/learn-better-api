@@ -27,6 +27,13 @@ router.get('/', async function(req, res) {
   res.send(result[0]);
 });
 
+router.get('/:id', async function(req, res) {
+  let id = req.params.id;
+  let result = await db.searchMessage(id);
+
+  res.send(result[0]);
+});
+
 //  UPDATE
 router.put('/:id', async function(req, res) {
   let message = req.body;

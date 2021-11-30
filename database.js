@@ -118,6 +118,15 @@ module.exports = {
     }
   },
 
+  searchMessage: async (id) => {
+    try {
+      let conn = await connect();
+      return await conn.query(`SELECT * FROM mensagem WHERE cd_autor = ${id};`);
+    } catch (error) {
+      return error;
+    }
+  },
+
   updateMessage: async (message, id) => {
     try {
       const conn = await connect();
