@@ -121,7 +121,7 @@ module.exports = {
   searchMessage: async (id) => {
     try {
       let conn = await connect();
-      return await conn.query(`SELECT * FROM mensagem WHERE cd_autor = ${id};`);
+      return await conn.query(`SELECT * FROM mensagem WHERE cd_autor = ${id} OR cd_destino = ${id};`);
     } catch (error) {
       return error;
     }
