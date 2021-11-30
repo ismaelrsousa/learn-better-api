@@ -40,6 +40,24 @@ module.exports = {
     }
   },
 
+  readUsersMentors: async () => {
+    try {
+      let conn = await connect();
+      return await conn.query(`SELECT * FROM usuario WHERE cd_tipo = "mentor";`);
+    } catch (error) {
+      return error;
+    }
+  },
+
+  readUsersMentees: async () => {
+    try {
+      let conn = await connect();
+      return await conn.query(`SELECT * FROM usuario WHERE cd_tipo = "mentorado";`);
+    } catch (error) {
+      return error;
+    }
+  },
+
   updateUser: async (user, id) => {
     try {
       const conn = await connect();
@@ -161,6 +179,15 @@ module.exports = {
     try {
       let conn = await connect();
       return await conn.query(`SELECT * FROM mentoria;`);
+    } catch (error) {
+      return error;
+    }
+  },
+
+  searchMentory: async (id) => {
+    try {
+      let conn = await connect();
+      return await conn.query(`SELECT * FROM mentoria WHERE cd_mentor = ${id} OR cd_mentorado = ${id};`);
     } catch (error) {
       return error;
     }

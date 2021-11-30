@@ -27,6 +27,18 @@ router.get('/', async function(req, res) {
   res.send(result[0]);
 });
 
+router.get('/mentors', async function(req, res) {
+  let result = await db.readUsersMentors();
+
+  res.send(result[0]);
+});
+
+router.get('/mentee', async function(req, res) {
+  let result = await db.readUsersMentees();
+
+  res.send(result[0]);
+});
+
 //  UPDATE
 router.put('/:id', async function(req, res) {
   let user = req.body;
